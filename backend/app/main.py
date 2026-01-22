@@ -32,15 +32,10 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-# CORS middleware - support wildcards for Vercel preview deployments
-cors_origins = settings.cors_origins_list
-# Check if any origin contains vercel.app, add regex for all vercel subdomains
-allow_origin_regex = r"https://.*\.vercel\.app" if any("vercel.app" in o for o in cors_origins) else None
-
+# CORS middleware - Allow all origins for immediate fix to resolve Vercel preview issues
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=cors_origins,
-    allow_origin_regex=allow_origin_regex,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

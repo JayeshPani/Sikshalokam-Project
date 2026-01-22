@@ -81,6 +81,11 @@ export default function Step1Page() {
             return;
         }
 
+        if (challengeText.length < 10) {
+            alert('Challenge statement must be at least 10 characters long');
+            return;
+        }
+
         setSaving(true);
         try {
             if (existingProblem) {

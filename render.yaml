@@ -1,0 +1,23 @@
+services:
+  # LogicForge Backend
+  - type: web
+    name: logicforge-backend
+    runtime: python
+    region: singapore # Closest to India for lower latency
+    repo: https://github.com/JayeshPani/Sikshalokam-Project
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+      - key: APP_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false # Add your Supabase connection string in dashboard
+      - key: CORS_ORIGINS
+        sync: false # Add your Vercel URL here after deploying frontend
+      - key: GROQ_API_KEY
+        sync: false # Add your Groq API key in dashboard
+
+version: "1"
